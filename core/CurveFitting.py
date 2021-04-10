@@ -7,8 +7,8 @@ from scipy.optimize.minpack import leastsq
 
 # 导入数据
 
-fpath = "D:\MyProject\VritualFlowmeter\sources\PumpPerformanceCurve32-80.csv"
-
+# fpath = "D:\MyProject\VritualFlowmeter\sources\PumpPerformanceCurve32-80.csv"
+fpath = "../sources/PumpPerformanceCurve32-80.csv"
 with open(fpath,'r') as f:
     f_csv=csv.reader(f)
     
