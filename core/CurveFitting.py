@@ -107,3 +107,25 @@ def result(p):
 # ccpfh = sum(residuals(r[0])**2) #残差平方和
 
 
+# 拟合优度计算
+
+
+
+class CurveFitting:
+#  本对象目的：进行拟合，返回拟合结果（系数），输出拟合图像，计算拟合优度
+
+    def __init__(self,data_Q,data_N,data_H):
+        self.X = data_Q
+        self.Y = data_N
+        self.Z = data_H
+        pass
+
+    def residuals(self,p,x,y):
+        fun = np.poly1d(p)
+        return y - fun(x)
+
+    def fitting(self,p):
+        pars = np.random.rand(p+1)
+        r = leastsq(PolyResiduals, pars, args=(X, Y))
+        return r[0]  # 返回系数
+
