@@ -26,3 +26,20 @@ def CalAnswer(x,deg,coe): #输入
     A = MkMatrix(x,deg)
     ans = np.sum(coe * A , axis=1)
     return ans
+
+def error(x,z,deg,coe):
+    error = z-CalAnswer(x,deg,coe)
+    return error
+    
+
+
+def CalforGrid(X,Y,deg,coe):
+    ans = 0
+    if len(deg) == len(coe):
+        for i in range(len(deg)):
+            temp = coe[i]*((X**deg[i][0])*(Y**deg[i][1]))
+            ans += temp
+
+        return ans
+
+

@@ -61,12 +61,47 @@ deg = Ft.Degrees(3)
 A = Ft.MkMatrix(x,deg)
 
 # 进行拟合
-def run():
-    deg = Ft.Degrees(3)
+# 得到完整拟合结果
+def Fitting(x,z,n=3):
+    deg = Ft.Degrees(n)
     A = Ft.MkMatrix(x,deg)
     c, resid, rank, sigma = Ft.lstsq(A, z)
     return [c,resid,rank,sigma]
 
-# 画图看看与结果分析
+# 单纯获得系数
+def getCoe(x,z,n=3):
+    deg = Ft.Degrees(n)
+    A = Ft.MkMatrix(x,deg)
+    c, resid, rank, sigma = Ft.lstsq(A, z)
+    return c
 
-from mpl_toolkits.mplot3d import Axes3D
+coe = getCoe(x,z)
+
+# 画图看看与结果分析
+# x,y 代表原始数据 X，Y，Z 大写代表网格数据（手动生产的）
+
+xx0 = np.linspace(60,610,200)
+xx1 = np.linspace(0,120,200)
+X,Y = np.meshgrid(xx0,xx1)
+Z = Ft.CalforGrid(X,Y,deg,coe)
+
+# 误差分析
+# Ft.error(x,z,deg,coe)
+
+# 测试各阶误差有多少   返回拟合优度
+def test(x,z,n):
+    deg = Ft.Degrees(n)
+    coe = getCoe(x,z,n)
+    er = Ft.error(x,z,deg,coe)
+    R2 = sum(er**2)   # 残差平方和
+    percentage = abs(er/Ft.CalAnswer(x,deg,coe))
+    avgper = sum(percentage)/len(percentage) * 100
+    maxper = max(percentage) * 100
+    return [R2,avgper,maxper,coe]
+
+test(x,z,6)
+
+for i in range(10):
+    i+=1
+    temp = test(x,z,i)
+    print(i,temp[:3])
