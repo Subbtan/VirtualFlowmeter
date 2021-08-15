@@ -35,27 +35,7 @@ for row in rawData:
 x=np.array(x)
 z=np.array(z)
 
-'''
-# 构造幂
-def Degrees(n):
-    ls=[] #创建数列存放幂对儿
-    for k in range(n+1):
-        for i in range(k+1):
-            ls.append((i,k-i))
-    return ls[::-1]
 
-# 构造A矩阵
-def MkMatrix(x,deg):
-    A = np.stack([np.prod(x**d,axis=1) for d in deg],axis=-1)
-    return A
-
-# 计算结果
-def CalAnswer(x,deg,coe): #输入
-    A = MkMatrix(x,deg)
-    ans = np.sum(coe * A , axis=1)
-    return ans
-'''
-'''# 通过import自己写的module代替'''
 
 deg = Ft.Degrees(3)
 A = Ft.MkMatrix(x,deg)
